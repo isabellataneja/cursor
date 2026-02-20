@@ -6,6 +6,7 @@ import CustomCursor from "@/components/CustomCursor";
 import NavBar from "@/components/NavBar";
 import HelloMoontasir from "@/components/HelloMoontasir";
 import PromptBattle from "@/components/PromptBattle";
+import CursorSetup from "@/components/CursorSetup";
 import CursorMasterclass from "@/components/CursorMasterclass";
 import GitHubGuide from "@/components/GitHubGuide";
 import VercelGuide from "@/components/VercelGuide";
@@ -13,7 +14,7 @@ import RetoolGuide from "@/components/RetoolGuide";
 import SectionWrapper from "@/components/SectionWrapper";
 import SectionTitle from "@/components/SectionTitle";
 import WelcomePage from "@/components/WelcomePage";
-import { Github, ExternalLink, Code2, Database, Globe } from "lucide-react";
+import { Github, ExternalLink, Code2, Database, Globe, Settings } from "lucide-react";
 
 const STORAGE_KEY = "cursor_guide_name";
 
@@ -118,9 +119,10 @@ export default function Home() {
 
       {/* ── QUICK OVERVIEW CARDS ── */}
       <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-4">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-5 gap-4">
           {[
-            { icon: <Code2 className="w-6 h-6" />, title: "Cursor", desc: "AI-native IDE with ⌘K, ⌘L, ⌘I superpowers", color: "text-purple-400", border: "border-purple-500/20", href: "#cursor" },
+            { icon: <Settings className="w-6 h-6" />, title: "Setup", desc: "Install & configure Cursor from scratch", color: "text-violet-400", border: "border-violet-500/20", href: "#setup" },
+            { icon: <Code2 className="w-6 h-6" />, title: "Cursor 101", desc: "AI-native IDE with ⌘K, ⌘L, ⌘I superpowers", color: "text-purple-400", border: "border-purple-500/20", href: "#cursor" },
             { icon: <Github className="w-6 h-6" />, title: "GitHub", desc: "Version control & collaboration hub", color: "text-slate-300", border: "border-slate-700", href: "#github" },
             { icon: <Globe className="w-6 h-6" />, title: "Vercel", desc: "Push to deploy — live in 60 seconds", color: "text-blue-400", border: "border-blue-500/20", href: "#vercel" },
             { icon: <Database className="w-6 h-6" />, title: "Retool", desc: "ETL workflows & fast data pipelines", color: "text-orange-400", border: "border-orange-500/20", href: "#retool" },
@@ -155,10 +157,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── CURSOR SETUP ── */}
+      <SectionWrapper id="setup">
+        <SectionTitle
+          eyebrow="Chapter 01"
+          title="Setting Up Cursor"
+          subtitle="Download, configure, and personalise Cursor in 10 steps. Check each one off as you go."
+          eyebrowColor="text-violet-400"
+        />
+        <CursorSetup />
+      </SectionWrapper>
+
       {/* ── CURSOR MASTERCLASS ── */}
       <SectionWrapper id="cursor">
         <SectionTitle
-          eyebrow="Chapter 01"
+          eyebrow="Chapter 02"
           title="The Cursor Masterclass"
           subtitle="Three keyboard shortcuts that replace an entire team of developers. Learn them cold."
           eyebrowColor="text-purple-400"
@@ -169,7 +182,7 @@ export default function Home() {
       {/* ── GITHUB GUIDE ── */}
       <SectionWrapper id="github">
         <SectionTitle
-          eyebrow="Chapter 02"
+          eyebrow="Chapter 03"
           title="Connecting to GitHub"
           subtitle="Version control is your time machine. This interactive checklist walks you through every step."
           eyebrowColor="text-emerald-400"
@@ -180,7 +193,7 @@ export default function Home() {
       {/* ── VERCEL GUIDE ── */}
       <SectionWrapper id="vercel">
         <SectionTitle
-          eyebrow="Chapter 03"
+          eyebrow="Chapter 04"
           title="Deploying with Vercel"
           subtitle="From git push to live website in 60 seconds. The pipeline that powers modern web development."
           eyebrowColor="text-blue-400"
@@ -191,7 +204,7 @@ export default function Home() {
       {/* ── RETOOL GUIDE ── */}
       <SectionWrapper id="retool">
         <SectionTitle
-          eyebrow="Chapter 04"
+          eyebrow="Chapter 05"
           title="Retool Data Workflows"
           subtitle="Build ETL pipelines that keep your frontend fast and your data clean. The professional way."
           eyebrowColor="text-orange-400"
