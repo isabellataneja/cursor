@@ -130,21 +130,6 @@ export default function RetoolGuide() {
 
   return (
     <div className="space-y-12">
-      {/* What is Retool */}
-      <div className="p-8 rounded-2xl border border-orange-500/20 bg-orange-500/5">
-        <div className="flex items-start gap-4">
-          <div className="text-3xl">🔧</div>
-          <div>
-            <h3 className="text-xl font-bold text-white mb-2">What is Retool?</h3>
-            <p className="text-slate-300 leading-relaxed">
-              Retool is a <strong className="text-white">low-code platform</strong> for building internal tools and workflows.
-              Think admin dashboards, data pipelines, and automation — without building a full backend from scratch.
-              It connects to your databases, APIs, and spreadsheets, and you can expose data to your Next.js frontend via webhooks.
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Architecture Diagram */}
       <div>
         <h3 className="text-xl font-bold text-white mb-6 text-center">The Optimal Data Architecture</h3>

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import CustomCursor from "@/components/CustomCursor";
 import NavBar from "@/components/NavBar";
 import HelloMoontasir from "@/components/HelloMoontasir";
@@ -11,11 +12,36 @@ import VercelGuide from "@/components/VercelGuide";
 import RetoolGuide from "@/components/RetoolGuide";
 import SectionWrapper from "@/components/SectionWrapper";
 import SectionTitle from "@/components/SectionTitle";
-import { Github, ExternalLink, Zap, Code2, Database, Globe } from "lucide-react";
+import WelcomePage from "@/components/WelcomePage";
+import { Github, ExternalLink, Code2, Database, Globe } from "lucide-react";
+
+const STORAGE_KEY = "cursor_guide_name";
 
 export default function Home() {
+  const [name, setName] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
+
+  // Restore saved name on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) setName(saved);
+    setReady(true);
+  }, []);
+
+  const handleEnter = (entered: string) => {
+    localStorage.setItem(STORAGE_KEY, entered);
+    setName(entered);
+  };
+
+  // Don't render until we've checked localStorage (prevents flash)
+  if (!ready) return null;
+
   return (
     <div className="min-h-screen bg-[#0a0a0f] grid-bg">
+      <AnimatePresence>
+        {!name && <WelcomePage onEnter={handleEnter} />}
+      </AnimatePresence>
+
       <CustomCursor />
       <NavBar />
 
@@ -42,8 +68,8 @@ export default function Home() {
             The Ultimate Cursor + Vercel + Retool Guide
           </motion.div>
 
-          {/* Hello Moontasir — main attraction */}
-          <HelloMoontasir />
+          {/* Dynamic greeting */}
+          <HelloMoontasir name={name ?? ""} />
 
           {/* Subtitle */}
           <motion.p

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const COLORS = [
@@ -80,20 +80,15 @@ function MagneticLetter({ char, index }: { char: string; index: number }) {
   );
 }
 
-export default function HelloMoontasir() {
-  const [name, setName] = useState<string | null>(null);
+interface Props {
+  name: string;
+}
+
+export default function HelloMoontasir({ name }: Props) {
   const [score, setScore] = useState(0);
   const [clicked, setClicked] = useState(false);
 
-  // Fetch the system username from our API route
-  useEffect(() => {
-    fetch("/api/username")
-      .then((r) => r.json())
-      .then((d) => setName(d.name ?? "Developer"))
-      .catch(() => setName("Developer"));
-  }, []);
-
-  const greeting = name ? `HELLO ${name.toUpperCase()}` : "HELLO...";
+  const greeting = `HELLO ${name.toUpperCase()}`;
   const letters = greeting.split("");
 
   const handleContainerClick = () => {
@@ -143,44 +138,24 @@ export default function HelloMoontasir() {
         ✨ Click score: {score} — hover each letter!
       </motion.div>
 
-      {/* Loading shimmer while name loads */}
-      {!name ? (
-        <div className="flex items-center gap-2">
-          {["HELLO", "..."].map((word, wi) =>
-            word.split("").map((char, ci) => (
-              <motion.span
-                key={`${wi}-${ci}`}
-                className="inline-block font-black text-slate-700"
-                style={{ fontSize: "clamp(2.2rem, 6vw, 5.5rem)" }}
-                animate={{ opacity: [0.3, 0.8, 0.3] }}
-                transition={{ duration: 1.2, repeat: Infinity, delay: ci * 0.1 }}
-              >
-                {char}
-              </motion.span>
-            ))
-          )}
+      {/* Main greeting */}
+      <div className="relative z-10 text-center">
+        <div className="flex flex-wrap justify-center items-center gap-0">
+          {letters.map((char, i) => (
+            <MagneticLetter key={`${greeting}-${i}`} char={char} index={i} />
+          ))}
         </div>
-      ) : (
-        <div className="relative z-10 text-center">
-          <div className="flex flex-wrap justify-center items-center gap-0">
-            {letters.map((char, i) => (
-              <MagneticLetter key={`${greeting}-${i}`} char={char} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
+      </div>
 
-      {/* Subtitle — appears after name loads */}
-      {name && (
-        <motion.p
-          className="mt-8 text-slate-400 text-lg font-light tracking-widest uppercase"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: letters.length * 0.045 + 0.4 }}
-        >
-          Welcome to the Cursor Universe 🚀
-        </motion.p>
-      )}
+      {/* Subtitle */}
+      <motion.p
+        className="mt-8 text-slate-400 text-lg font-light tracking-widest uppercase"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: letters.length * 0.045 + 0.4 }}
+      >
+        Welcome to the Cursor Universe 🚀
+      </motion.p>
 
       {/* Floating particles */}
       {[...Array(12)].map((_, i) => (
